@@ -1,9 +1,8 @@
 import React from 'react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
-
+import { Link } from 'react-router-dom';
 const Home = () => {
-  // On affiche seulement les 3 premiers produits pour la home
   const featuredProducts = products.slice(0, 3);
 
   return (
@@ -14,7 +13,7 @@ const Home = () => {
           <p>New collection available</p>
         </div>
       </header>
-      
+
       <section className="featured">
         <div className="grid">
           {featuredProducts.map(product => (
@@ -22,9 +21,9 @@ const Home = () => {
           ))}
         </div>
         <div className="discover-more">
-            <h2>DISCOVER MORE PRODUCTS</h2>
-            <p>Load more products from our exclusive collection.</p>
-            <button className="white-btn">POP UP</button>
+          <h2>DISCOVER MORE PRODUCTS</h2>
+          <p>Load more products from our exclusive collection.</p>
+          <Link to="/catalog" className="white-btn">Show More</Link>
         </div>
       </section>
     </div>

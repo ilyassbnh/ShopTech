@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Trash2 } from 'lucide-react';
+import { X} from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCart, removeFromCart, increaseQuantity, decreaseQuantity } from '../redux/slices/cartSlice';
 

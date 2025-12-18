@@ -1,27 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, Heart } from 'lucide-react'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCart } from '../redux/slices/cartSlice';
-
-// 1. On importe le logo depuis le dossier assets
-// Le chemin "../assets" signifie "remonter d'un dossier, puis aller dans assets"
 import logoImg from '../assets/logo.png';
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  
+  // 1. On garde cartCount pour le petit badge rouge (nombre d'items)
   const cartCount = useSelector(state => state.cart.cartItems.reduce((acc, item) => acc + item.quantity, 0));
+  
+  // 2. NOUVEAU : On calcule le prix total pour l'afficher à côté du texte "Cart"
+  const cartTotal = useSelector(state => state.cart.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0));
+
   const wishlistCount = useSelector(state => state.wishlist.items.length);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
-    <nav className="navbar">
-      {/* 2. Section Logo modifiée pour utiliser l'image */}
+    <nav className={`navbar ${isHomePage ? '' : 'nav-dark'}`}>
       <Link to="/" className="logo">
-        <img 
-          src={logoImg} 
-          alt="ShopTech Logo" 
-          className="logo-image" 
-        />
+        <img src={logoImg} alt="ShopTech Logo" className="logo-image" />
       </Link>
 
       <div className="nav-links">
@@ -31,12 +31,20 @@ const Navbar = () => {
 
       <div className="nav-icons">
         <Link to="/wishlist" className="icon-wrapper">
-          <Heart size={22} color='grey' />
+          <Heart size={22} color='grey'/>
           {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
         </Link>
+        
         <div className="icon-wrapper" onClick={() => dispatch(toggleCart())}>
           <ShoppingBag size={22} />
-          <span style={{marginLeft: '8px', fontSize: '0.9rem'}}>Cart (${cartCount})</span>
+          
+          {/* 3. LIGNE MODIFIÉE : On affiche cartTotal au lieu de cartCount */}
+          <span style={{marginLeft: '8px', fontSize: '0.9rem', fontWeight: '500'}}>
+            Cart (${cartTotal})
+          </span>
+
+          {/* On garde le badge pour le nombre d'articles si tu le souhaites */}
+          {cartCount > 0 && <span className="badge">{cartCount}</span>}
         </div>
       </div>
     </nav>
