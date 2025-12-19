@@ -101,7 +101,7 @@ export const products = [
     id: 22,
     name: "Suspension Grey",
     price: 250,
-    image: imgType12,
+    image: imgType16,
     category: "Lighting"
   },
   {
@@ -124,12 +124,5 @@ export const products = [
     price: 80,
     image: imgType15,
     category: "Lighting"
-  },
-  {
-    id: 27,
-    name: "Ceiling Spot",
-    price: 110,
-    image: imgType16,
-    category: "Lighting"
-  },
+  }
 ];
