@@ -219,12 +219,10 @@ body {
 
 .image-container {
   position: relative;
-  background: #f9f9f9;
   overflow: hidden;
   /* Hauteur fixe pour la Home */
   height: 300px;
-  padding: 40px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -530,7 +528,30 @@ body {
   font-weight: bold;
   margin-top: 5px;
 }
+/* =========================================
+   7. STYLE CATALOGUE HOVER (Avec Coeur)
+   ========================================= */
+.catalog-pattern-container .card-info {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  background: rgba(255, 255, 255, 0.95); padding: 15px;
+  opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
+  z-index: 10; text-align: center;
+}
+.catalog-pattern-container .product-card:hover .card-info { opacity: 1; transform: translateY(0); }
+.catalog-pattern-container .price { color: black; font-weight: bold; }
 
+/* Bouton Coeur Catalogue */
+.catalog-heart-btn {
+  position: absolute; top: 15px; right: 15px;
+  background: white; border: none; border-radius: 50%;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer; z-index: 20;
+  opacity: 0; transform: scale(0.8); transition: all 0.3s ease;
+}
+.product-card:hover .catalog-heart-btn { opacity: 1; transform: scale(1); }
+.catalog-heart-btn:hover { background: #f0f0f0; }
 /* =========================================
    8. AUTRES STYLES (Footer, Sidebar, Responsive)
    ========================================= */

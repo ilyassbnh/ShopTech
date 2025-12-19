@@ -1,8 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// 1. Fonction Helper pour charger le panier existant
+const loadCartFromStorage = () => {
+  try {
+    const storedCart = localStorage.getItem('shoptech_cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  } catch (error) {
+    return [];
+  }
+};
+
 const initialState = {
-  cartItems: [],
-  isOpen: false, // Pour gérer l'ouverture de la sidebar
+  cartItems: loadCartFromStorage(), // On démarre avec les données sauvegardées
+  isOpen: false, 
 };
 
 const cartSlice = createSlice({
@@ -16,19 +26,29 @@ const cartSlice = createSlice({
       } else {
         state.cartItems.push({ ...action.payload, quantity: 1 });
       }
-      state.isOpen = true; // Ouvre le panier quand on ajoute
+      state.isOpen = true;
+      // SAUVEGARDE
+      localStorage.setItem('shoptech_cart', JSON.stringify(state.cartItems));
     },
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter((item) => item.id !== action.payload);
+      // SAUVEGARDE
+      localStorage.setItem('shoptech_cart', JSON.stringify(state.cartItems));
     },
     increaseQuantity: (state, action) => {
       const item = state.cartItems.find((item) => item.id === action.payload);
-      if (item) item.quantity += 1;
+      if (item) {
+        item.quantity += 1;
+        // SAUVEGARDE
+        localStorage.setItem('shoptech_cart', JSON.stringify(state.cartItems));
+      }
     },
     decreaseQuantity: (state, action) => {
       const item = state.cartItems.find((item) => item.id === action.payload);
       if (item && item.quantity > 1) {
         item.quantity -= 1;
+        // SAUVEGARDE
+        localStorage.setItem('shoptech_cart', JSON.stringify(state.cartItems));
       }
     },
     toggleCart: (state) => {
