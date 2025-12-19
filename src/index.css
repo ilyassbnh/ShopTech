@@ -15,8 +15,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
+  scrollbar-width: none;
+}   
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
@@ -815,4 +815,109 @@ body {
   .masonry-grid {
     column-count: 1;
   }
+}
+/* =========================================
+   10. AJOUTS : ANIMATIONS & RESPONSIVE
+   ========================================= */
+
+/* --- A. LES ANIMATIONS (Keyframes) --- */
+@keyframes fadeIn { 
+  from { opacity: 0; } 
+  to { opacity: 1; } 
+}
+
+@keyframes fadeInUp { 
+  from { opacity: 0; transform: translateY(30px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+@keyframes fadeInDown { 
+  from { opacity: 0; transform: translateY(-30px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* Application des animations aux éléments existants */
+.page-title {
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.hero-content {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.cart-item {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Smooth Scroll pour toute la page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- B. RESPONSIVE TABLETTE (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  /* Navbar un peu plus compacte */
+  .navbar { padding: 0 30px; }
+  .logo-image { height: 60px; }
+  .nav-links { gap: 30px; font-size: 0.8rem; }
+  
+  /* Le catalogue "Pinterest" passe à 3 colonnes */
+  .masonry-grid { column-count: 3; }
+  
+  /* --- FIX IMPORTANT POUR LA MOSAÏQUE (Catalog) --- */
+  .catalog-pattern-container { padding: 20px; }
+  
+  /* On empile les blocs verticalement au lieu de côte à côte */
+  .pattern-row {
+    height: auto; 
+    flex-direction: column !important;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Les blocs prennent toute la largeur */
+  .quad-block, .single-block {
+    width: 100%;
+    /* On garde une hauteur fixe pour que ça reste joli */
+    height: 500px; 
+  }
+}
+
+/* --- C. RESPONSIVE MOBILE (max-width: 768px) --- */
+@media (max-width: 768px) {
+  /* La Sidebar prend tout l'écran sur mobile */
+  :root { --sidebar-width: 100%; } 
+  
+  /* Navbar Mobile : Fond sombre pour lisibilité */
+  .navbar { padding: 10px 20px; background: rgba(0,0,0,0.8); }
+  .navbar.nav-dark { background: white; }
+  
+  /* On cache les liens texte sur mobile (trop petit) */
+  .nav-links { display: none; } 
+  
+  /* Hero Text plus petit */
+  .hero-content h1 { font-size: 1.8rem; letter-spacing: 2px; }
+  
+  /* Grille Home : 1 seule colonne */
+  .grid {
+    padding: 40px 20px;
+    grid-template-columns: 1fr; 
+    gap: 30px;
+  }
+  
+  /* Masonry Catalog : 1 seule colonne */
+  .masonry-grid { column-count: 1; padding: 20px; }
+  
+  /* Mosaïque Catalog Mobile : On simplifie tout */
+  .quad-block { 
+    height: auto; 
+    display: flex; 
+    flex-direction: column; 
+  }
+  
+  .single-block { height: 350px; }
+  .single-block .image-container { padding: 20px; }
+  
+  /* Les 4 petits items deviennent empilés ou carrés */
+  .quad-block .image-container { height: 250px !important; }
 }
